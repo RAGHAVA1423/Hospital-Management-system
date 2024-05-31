@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $place = $_POST['place'];
     $problem = $_POST['problem'];
 
-    // Insert the appointment with a status of 'pending payment'
     $sql = "INSERT INTO appointments (appointment_date, status, doctor_id, patient_name, place, problem) VALUES (?, 'pending payment', ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sisss", $appointment_date, $doctor_id, $patient_name, $place, $problem);
@@ -59,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       background-size: cover; 
       font-family: Arial, sans-serif;
       display: flex;
-      justify-content: center; /* Center horizontally */
-      align-items: center; /* Center vertically */
+      justify-content: center; 
+      align-items: center;
       height: 100vh;
     }
     .container {
@@ -96,7 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <div class="container mt-5">
     <h2>Book an Appointment</h2>
     
-    <!-- Display error message -->
     <?php if (isset($_SESSION['error_message'])): ?>
       <div class="alert alert-danger">
         <?php 
@@ -110,7 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <div class="form-group">
         <label for="doctor_id">Select Doctor</label>
         <select class="form-control" id="doctor_id" name="doctor_id" required>
-          <!-- Fetch doctors from the database -->
           <?php
           $sql = "SELECT id, username FROM users WHERE role='doctor'";
           $result = $conn->query($sql);
